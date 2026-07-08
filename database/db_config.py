@@ -1,2 +1,18 @@
-# Database Configuration Module
-# This module contains database configuration settings
+import os
+from supabase import create_client, Client
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
+
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_KEY")
+
+if not url or not key:
+    raise ValueError("Supabase URL and Key must be set in .env")
+
+# Initialize Supabase client
+supabase: Client = create_client(url, key)
+
+def get_db():
+    return supabase
